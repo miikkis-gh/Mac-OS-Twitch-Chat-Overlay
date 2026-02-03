@@ -3,6 +3,10 @@
 .AppleDouble
 .LSOverride
 
+# Xcode project
+*.xcodeproj/
+*.xcworkspace/
+
 # Xcode user-specific files
 xcuserdata/
 *.xcuserstate
@@ -21,6 +25,7 @@ DerivedData/
 *.dmg
 dmg_temp/
 temp_rw.dmg
+create-dmg.sh
 
 # Archive exports
 Overlay */
