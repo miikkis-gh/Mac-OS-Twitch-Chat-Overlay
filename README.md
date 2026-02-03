@@ -1,10 +1,31 @@
 # Twitch Chat Overlay for macOS
 
-A lightweight **macOS overlay app** that displays **Twitch chat** as a floating transparent window. Perfect for **streamers** and viewers who want to keep chat visible while playing **fullscreen windowed games** like World of Warcraft, League of Legends, Valorant, and more.
-
 ![macOS](https://img.shields.io/badge/macOS-12.0+-blue)
 ![Swift](https://img.shields.io/badge/Swift-5.0+-orange)
 ![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)
+
+## The Problem
+
+**Streaming with a single monitor?** You know the struggle:
+
+- You're live on Twitch, playing your favorite game in fullscreen
+- Your chat is blowing up with messages, but you can't see them
+- Alt-tabbing to check chat breaks your gameplay and looks unprofessional
+- You miss important messages, subscriber alerts, and viewer interactions
+- Buying a second monitor isn't always an option
+
+**Single-monitor streamers on macOS** have had limited solutions—until now.
+
+## The Solution
+
+**Twitch Chat Overlay** is a lightweight **macOS app** that displays your **Twitch chat** as a floating transparent window directly on top of your game. No second monitor needed.
+
+- **See chat while gaming** - The overlay stays visible on top of fullscreen windowed games
+- **Interact with your game** - Click-through mode lets mouse clicks pass through to your game
+- **Stay focused** - No more alt-tabbing, no more missed messages
+- **Clean aesthetic** - Glassmorphic design blends seamlessly with your gameplay
+
+Perfect for **streamers** playing World of Warcraft, League of Legends, Valorant, Final Fantasy XIV, and any game that supports fullscreen windowed mode.
 
 ## Features
 
