@@ -87,4 +87,6 @@ Works with any application using **fullscreen windowed** (borderless) mode:
 
 ## License
 
-MIT License
+All Rights Reserved © 2026
+
+This software is proprietary. No permission is granted to use, copy, modify, or distribute this software or its source code without explicit written permission from the author.
