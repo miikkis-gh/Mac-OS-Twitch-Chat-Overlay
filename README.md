@@ -4,138 +4,64 @@
 ![Swift](https://img.shields.io/badge/Swift-5.0+-orange)
 ![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)
 
-## The Problem
+If you stream on Twitch with a single monitor, you've probably dealt with this: you're in the middle of a game, chat is active, and you have no idea what anyone is saying. Alt-tabbing kills the vibe and makes you look distracted on stream.
 
-**Streaming with a single monitor?** You know the struggle:
+This app puts your Twitch chat directly on screen as a transparent overlay that floats on top of your game. Click-through mode means you can keep playing without the overlay getting in the way.
 
-- You're live on Twitch, playing your favorite game in fullscreen
-- Your chat is blowing up with messages, but you can't see them
-- Alt-tabbing to check chat breaks your gameplay and looks unprofessional
-- You miss important messages, subscriber alerts, and viewer interactions
-- Buying a second monitor isn't always an option
-
-**Single-monitor streamers on macOS** have had limited solutions—until now.
-
-## The Solution
-
-**Twitch Chat Overlay** is a lightweight **macOS app** that displays your **Twitch chat** as a floating transparent window directly on top of your game. No second monitor needed.
-
-- **See chat while gaming** - The overlay stays visible on top of fullscreen windowed games
-- **Interact with your game** - Click-through mode lets mouse clicks pass through to your game
-- **Stay focused** - No more alt-tabbing, no more missed messages
-- **Clean aesthetic** - Glassmorphic design blends seamlessly with your gameplay
-
-Perfect for **streamers** playing World of Warcraft, League of Legends, Valorant, Final Fantasy XIV, and any game that supports fullscreen windowed mode.
-
-## Features
-
-- **Floating Overlay Window** - Stays on top of other windows, including fullscreen windowed games
-- **Glassmorphic Design** - Beautiful Apple-style translucent glass card appearance
-- **Minimal Chat Style** - Option to show only usernames and messages with transparent background
-- **Adjustable Text Size** - Small, Medium, or Large text for minimal chat style
-- **Opacity Controls** - Separate sliders for background and content transparency
-- **Click-Through Mode** - Let mouse clicks pass through to interact with games underneath
-- **Global Hotkey** - Toggle click-through with Ctrl+§ from anywhere, even in-game
-- **Resizable & Draggable** - Position and size the overlay to your preference
-- **Persistent Settings** - Window position and settings saved between sessions
-- **Status Bar Menu** - Quick access from the macOS menu bar
-
-## Screenshots
-
-*Overlay showing Twitch chat on top of a game with glassmorphic transparency*
-
-## Requirements
-
-- macOS 12.0 (Monterey) or later
-- Apple Silicon or Intel Mac
+Built for macOS. Works with any game running in fullscreen windowed/borderless mode.
 
 ## Download
 
-Download the latest release from the [Releases](../../releases) page.
+Grab the latest `.dmg` from the [Releases](../../releases) page.
 
-1. Download `Overlay.dmg`
-2. Open the DMG and drag **Overlay** to your **Applications** folder
-3. Launch Overlay from Applications
+## What it does
 
-## Usage
+- Displays Twitch chat in a floating window that stays on top of games
+- Transparent glassmorphic background (Apple-style blur effect)
+- Click-through mode so you can interact with your game (toggle with Ctrl+§)
+- Minimal chat style strips away the Twitch UI, leaving just usernames and messages
+- Adjustable text size (small/medium/large) and opacity controls
+- Remembers window position between sessions
+- Menu bar icon for quick access
 
-### Setting Up Twitch Chat
+## Setup
 
-1. Open [Twitch](https://twitch.tv) in your browser
-2. Navigate to the channel whose chat you want to display
-3. Click the chat settings gear icon and select **"Popout Chat"**
-4. Copy the URL from the popout window
-   (e.g., `https://www.twitch.tv/popout/channelname/chat`)
-5. Open Overlay settings and paste the URL
-6. Click **"Apply URL"**
+1. Go to your Twitch channel, click the chat settings gear, select "Popout Chat"
+2. Copy the URL (looks like `https://www.twitch.tv/popout/yourchannel/chat`)
+3. Open Overlay settings, paste the URL, click Apply
 
-### Controls
+That's it.
 
-| Action | Method |
-|--------|--------|
-| Move window | Drag the handle bar at the top |
-| Resize window | Drag window edges or corners |
-| Toggle click-through | Press **Ctrl+§** (global hotkey) |
-| Open settings | Click status bar icon → Settings, or **Cmd+,** |
-| Show/Hide overlay | Click status bar icon → Show/Hide Overlay |
+## Controls
 
-### Settings
+| Action | How |
+|--------|-----|
+| Move window | Drag the bar at the top |
+| Resize | Drag edges/corners |
+| Toggle click-through | Ctrl+§ |
+| Settings | Cmd+, or menu bar icon |
 
-| Setting | Description |
-|---------|-------------|
-| **Twitch Chat URL** | The popout chat URL from Twitch |
-| **Minimal chat style** | Hides Twitch UI, shows only messages |
-| **Text Size** | Small, Medium, or Large (minimal style only) |
-| **Background Opacity** | Transparency of the glass background |
-| **Content Opacity** | Transparency of the chat content |
-| **Click-Through Mode** | Enable to interact with windows underneath |
-| **Reset Window Position** | Centers the overlay with default size |
+## Game compatibility
 
-## Game Compatibility
+Works with games running in fullscreen windowed or borderless mode:
 
-Works with any game or application using **fullscreen windowed** (borderless) mode:
+WoW, League, Valorant, FFXIV, CS2, Dota 2, Overwatch 2, Diablo IV, Path of Exile, and basically any modern game with a borderless option.
 
-- **World of Warcraft (WoW)**
-- **League of Legends (LoL)**
-- **Valorant**
-- **Final Fantasy XIV (FFXIV)**
-- **Counter-Strike 2 (CS2)**
-- **Dota 2**
-- **Overwatch 2**
-- **Diablo IV**
-- **Path of Exile**
-- Most modern games with "Fullscreen (Windowed)" or "Borderless" display option
-
-> **Note:** True exclusive fullscreen mode bypasses the window system and will hide the overlay. Use fullscreen windowed/borderless mode for best results.
+Doesn't work with true exclusive fullscreen (the game takes over the display completely and overlays can't show).
 
 ## Troubleshooting
 
-### Overlay not visible in game
-Ensure the game is using "Fullscreen Windowed" or "Borderless" mode, not exclusive fullscreen.
+**Overlay not showing in game** — Make sure your game is set to fullscreen windowed or borderless, not exclusive fullscreen.
 
-### Global hotkey not working
-1. Open **System Settings** → **Privacy & Security** → **Accessibility**
-2. Enable **Overlay** in the list
-3. Restart the app after granting permissions
+**Hotkey not working** — Go to System Settings → Privacy & Security → Accessibility and enable Overlay. Restart the app.
 
-### Chat not loading
-- Verify the URL is a valid Twitch popout chat URL
-- Check your internet connection
-- Try refreshing by re-applying the URL in settings
+**Chat not loading** — Double-check your URL is a valid Twitch popout chat link.
 
-### Window moved off-screen
-Use **Settings → Reset Window Position** to bring it back to center.
+**Window disappeared** — Use Settings → Reset Window Position.
 
-## Tech Stack
+## Built with
 
-- **Swift 5** - Modern Swift programming language
-- **SwiftUI** - Declarative UI framework for settings
-- **AppKit** - Native macOS window management
-- **WebKit** - WKWebView for rendering Twitch chat
-
-## Keywords
-
-macOS Twitch chat overlay, streaming overlay app, transparent chat window, floating overlay for games, Twitch chat on screen, OBS alternative overlay, stream chat desktop app, gaming chat overlay Mac, borderless window overlay, click-through overlay macOS
+Swift, SwiftUI, AppKit, WebKit
 
 ## License
 
