@@ -30,20 +30,33 @@ xattr -cr /Applications/Overlay.app
 ## What it does
 
 - Displays Twitch chat in a floating window that stays on top of games
+- Separate alerts overlay for StreamElements, Streamlabs, or any browser source
 - Transparent glassmorphic background (Apple-style blur effect)
 - Click-through mode so you can interact with your game (toggle with Ctrl+§)
 - Minimal chat style strips away the Twitch UI, leaving just usernames and messages
 - Adjustable text size (small/medium/large) and opacity controls
-- Remembers window position between sessions
+- Keyword alerts highlight messages containing specific words
+- Custom hotkey configuration
+- Custom font selection for chat
+- Remembers window positions between sessions
 - Menu bar icon for quick access
 
 ## Setup
+
+### Chat Overlay
 
 1. Go to your Twitch channel, click the chat settings gear, select "Popout Chat"
 2. Copy the URL (looks like `https://www.twitch.tv/popout/yourchannel/chat`)
 3. Open Overlay settings, paste the URL, click Apply
 
-That's it.
+### Alerts Overlay (Optional)
+
+1. Get your alerts overlay URL from StreamElements, Streamlabs, or your preferred service
+2. Open Overlay settings, scroll to "Alerts Overlay" section
+3. Paste the URL, click Apply
+4. Use the menu bar icon to show/hide the alerts window
+
+Both windows share the same click-through toggle, so one hotkey controls both.
 
 ## Controls
 
@@ -51,8 +64,17 @@ That's it.
 |--------|-----|
 | Move window | Drag the bar at the top |
 | Resize | Drag edges/corners |
-| Toggle click-through | Ctrl+§ |
+| Toggle click-through | Ctrl+§ (customizable) |
+| Show/hide alerts | Menu bar icon |
 | Settings | Cmd+, or menu bar icon |
+
+## Advanced Options
+
+In Settings, expand "Advanced Options" to access:
+
+- **Custom Hotkey** — Change the click-through toggle shortcut to any key combination
+- **Chat Font** — Choose a different font for chat messages (requires Minimal Style)
+- **Keyword Alerts** — Add words to highlight in chat (e.g., your username). Matching messages get a colored background
 
 ## Game compatibility
 
@@ -70,7 +92,9 @@ Doesn't work with true exclusive fullscreen (the game takes over the display com
 
 **Chat not loading** — Double-check your URL is a valid Twitch popout chat link.
 
-**Window disappeared** — Use Settings → Reset Window Position.
+**Alerts not loading** — Make sure your alerts URL is correct. StreamElements/Streamlabs URLs should start with their domain.
+
+**Window disappeared** — Use Settings → Reset Chat Window Position or Reset Alerts Window Position.
 
 ## Built with
 
