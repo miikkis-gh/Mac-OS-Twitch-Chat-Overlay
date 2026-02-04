@@ -10,6 +10,8 @@ This app puts your Twitch chat directly on screen as a transparent overlay that 
 
 Built for macOS. Works with any game running in fullscreen windowed/borderless mode.
 
+![Overlay Screenshot](assets/screenshot.png)
+
 ## Download
 
 Grab the latest `.dmg` from the [Releases](../../releases) page.
