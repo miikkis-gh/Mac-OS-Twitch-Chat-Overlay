@@ -5,6 +5,8 @@ import Combine
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var overlayWindow: OverlayWindow?
     var overlayViewController: OverlayViewController?
+    var alertsWindow: AlertsWindow?
+    var alertsViewController: AlertsViewController?
     var statusBarMenu: StatusBarMenu?
     var settingsWindow: NSWindow?
     var hotkeyManager: HotkeyManager?
@@ -12,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupOverlayWindow()
+        setupAlertsWindow()
         setupStatusBarMenu()
         setupHotkeyManager()
         setupMainMenu()
@@ -50,10 +53,50 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         NSApplication.shared.activate(ignoringOtherApps: true)
     }
 
+    private func setupAlertsWindow() {
+        let settings = AppSettings.shared
+        let defaultFrame = NSRect(x: 0, y: 0, width: 400, height: 300)
+
+        let frame: NSRect
+        let shouldCenter: Bool
+        if let savedFrame = settings.alertsWindowFrame {
+            frame = savedFrame
+            shouldCenter = false
+        } else {
+            frame = defaultFrame
+            shouldCenter = true
+        }
+
+        alertsWindow = AlertsWindow(contentRect: frame)
+        alertsViewController = AlertsViewController()
+        alertsWindow?.contentViewController = alertsViewController
+
+        // Center on first use
+        if shouldCenter {
+            alertsWindow?.center()
+        }
+
+        // Don't show alerts window by default - user toggles it on
+    }
+
+    func toggleAlertsWindow() {
+        if let window = alertsWindow {
+            if window.isVisible {
+                window.orderOut(nil)
+            } else {
+                window.makeKeyAndOrderFront(nil)
+            }
+        }
+        statusBarMenu?.updateMenu()
+    }
+
     private func setupStatusBarMenu() {
         statusBarMenu = StatusBarMenu(
             toggleOverlayAction: { [weak self] in
                 self?.toggleOverlay()
+            },
+            toggleAlertsAction: { [weak self] in
+                self?.toggleAlertsWindow()
             },
             toggleClickThroughAction: { [weak self] in
                 self?.toggleClickThrough()
@@ -164,7 +207,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let settings = AppSettings.shared
         settings.clickThroughEnabled.toggle()
 
+        // Toggle both windows together
         overlayWindow?.ignoresMouseEvents = settings.clickThroughEnabled
+        alertsWindow?.ignoresMouseEvents = settings.clickThroughEnabled
         statusBarMenu?.updateMenu()
     }
 
@@ -178,13 +223,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         window.styleMask = [.titled, .closable, .resizable]
         window.setContentSize(NSSize(width: 400, height: 560))
         window.minSize = NSSize(width: 400, height: 170)
-        window.maxSize = NSSize(width: 400, height: 750)
+        window.maxSize = NSSize(width: 400, height: 900)
         window.delegate = self
         window.center()
         settingsWindow = window
 
-        // Temporarily lower overlay so settings can receive input
+        // Temporarily lower overlays so settings can receive input
         overlayWindow?.level = .normal
+        alertsWindow?.level = .normal
         NSApplication.shared.activate(ignoringOtherApps: true)
         settingsWindow?.makeKeyAndOrderFront(nil)
     }
@@ -230,14 +276,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         if let frame = overlayWindow?.frame {
             AppSettings.shared.windowFrame = frame
         }
+        if let frame = alertsWindow?.frame {
+            AppSettings.shared.alertsWindowFrame = frame
+        }
     }
 
     // MARK: - NSWindowDelegate
 
     func windowWillClose(_ notification: Notification) {
         if notification.object as? NSWindow == settingsWindow {
-            // Restore overlay to floating level
+            // Restore overlays to floating level
             overlayWindow?.level = .floating
+            alertsWindow?.level = .floating
             // Clear reference so a new window is created next time
             settingsWindow = nil
         }
@@ -251,8 +301,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             170,  // URL section only
             380,  // + Appearance section
             480,  // + Click-Through section
-            560,  // + Window section
-            750   // + Advanced Options section (expanded)
+            560,  // + Chat Window section
+            750,  // + Alerts section
+            900   // + Advanced Options section (expanded)
         ]
 
         let snapThreshold: CGFloat = 25

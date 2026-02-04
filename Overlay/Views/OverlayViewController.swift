@@ -84,6 +84,7 @@ class OverlayViewController: NSViewController, WKNavigationDelegate {
         // Create a draggable area at the top of the window (30px height)
         dragAreaView = DragAreaView(frame: NSRect(x: 0, y: view.bounds.height - 30, width: view.bounds.width, height: 30))
         dragAreaView.autoresizingMask = [.width, .minYMargin]
+        dragAreaView.gripOpacity = CGFloat(settings.backgroundOpacity)
         view.addSubview(dragAreaView)
     }
 
@@ -92,6 +93,7 @@ class OverlayViewController: NSViewController, WKNavigationDelegate {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] opacity in
                 self?.backgroundView.alphaValue = CGFloat(opacity)
+                self?.dragAreaView.gripOpacity = CGFloat(opacity)
             }
             .store(in: &cancellables)
 
@@ -429,6 +431,12 @@ class OverlayViewController: NSViewController, WKNavigationDelegate {
 
 class DragAreaView: NSView {
 
+    var gripOpacity: CGFloat = 1.0 {
+        didSet {
+            needsDisplay = true
+        }
+    }
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
@@ -452,8 +460,11 @@ class DragAreaView: NSView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
+        // Hide grip when opacity is 0
+        guard gripOpacity > 0 else { return }
+
         // Draw a subtle grip indicator
-        NSColor.white.withAlphaComponent(0.3).setFill()
+        NSColor.white.withAlphaComponent(0.3 * gripOpacity).setFill()
 
         let gripWidth: CGFloat = 36
         let gripHeight: CGFloat = 5

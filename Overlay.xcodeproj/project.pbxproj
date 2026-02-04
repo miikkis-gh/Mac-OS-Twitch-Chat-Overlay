@@ -17,6 +17,8 @@
 		A1000008001 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008000 /* HotkeyManager.swift */; };
 		A1000009001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000009000 /* Assets.xcassets */; };
 		A100000C001 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000C000 /* HotkeyRecorderView.swift */; };
+		A100000D001 /* AlertsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000D000 /* AlertsWindow.swift */; };
+		A100000E001 /* AlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000E000 /* AlertsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		A100000A000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A100000B000 /* Overlay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Overlay.entitlements; sourceTree = "<group>"; };
 		A100000C000 /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
+		A100000D000 /* AlertsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsWindow.swift; sourceTree = "<group>"; };
+		A100000E000 /* AlertsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,8 @@
 				A1000006000 /* SettingsView.swift */,
 				A1000007000 /* StatusBarMenu.swift */,
 				A100000C000 /* HotkeyRecorderView.swift */,
+				A100000D000 /* AlertsWindow.swift */,
+				A100000E000 /* AlertsViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,6 +189,8 @@
 				A1000007001 /* StatusBarMenu.swift in Sources */,
 				A1000008001 /* HotkeyManager.swift in Sources */,
 				A100000C001 /* HotkeyRecorderView.swift in Sources */,
+				A100000D001 /* AlertsWindow.swift in Sources */,
+				A100000E001 /* AlertsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

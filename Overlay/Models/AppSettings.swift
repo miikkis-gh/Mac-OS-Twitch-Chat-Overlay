@@ -42,6 +42,10 @@ class AppSettings: ObservableObject {
         static let chatFontFamily = "chatFontFamily"
         static let alertKeywords = "alertKeywords"
         static let alertHighlightColor = "alertHighlightColor"
+        // Alerts window
+        static let alertsWindowFrame = "alertsWindowFrame"
+        static let alertsURL = "alertsURL"
+        static let alertsBackgroundOpacity = "alertsBackgroundOpacity"
     }
 
     // MARK: - Persisted Settings
@@ -132,6 +136,40 @@ class AppSettings: ObservableObject {
         }
     }
 
+    // MARK: - Alerts Window Settings
+
+    var alertsWindowFrame: NSRect? {
+        get {
+            guard let data = defaults.data(forKey: Keys.alertsWindowFrame),
+                  let rect = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSValue.self, from: data) else {
+                return nil
+            }
+            return rect.rectValue
+        }
+        set {
+            if let newValue = newValue {
+                let value = NSValue(rect: newValue)
+                if let data = try? NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true) {
+                    defaults.set(data, forKey: Keys.alertsWindowFrame)
+                }
+            } else {
+                defaults.removeObject(forKey: Keys.alertsWindowFrame)
+            }
+        }
+    }
+
+    @Published var alertsURL: String {
+        didSet {
+            defaults.set(alertsURL, forKey: Keys.alertsURL)
+        }
+    }
+
+    @Published var alertsBackgroundOpacity: Double {
+        didSet {
+            defaults.set(alertsBackgroundOpacity, forKey: Keys.alertsBackgroundOpacity)
+        }
+    }
+
     // MARK: - Non-persisted Settings (always default on launch)
 
     @Published var clickThroughEnabled: Bool = false
@@ -153,6 +191,10 @@ class AppSettings: ObservableObject {
         self.chatFontFamily = defaults.string(forKey: Keys.chatFontFamily) ?? "System"
         self.alertKeywords = defaults.object(forKey: Keys.alertKeywords) as? [String] ?? []
         self.alertHighlightColor = defaults.string(forKey: Keys.alertHighlightColor) ?? "#FFFF00"
+
+        // Alerts window
+        self.alertsURL = defaults.string(forKey: Keys.alertsURL) ?? ""
+        self.alertsBackgroundOpacity = defaults.object(forKey: Keys.alertsBackgroundOpacity) as? Double ?? 1.0
     }
 
     // MARK: - First Launch Detection

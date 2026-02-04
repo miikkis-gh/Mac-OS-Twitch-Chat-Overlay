@@ -52,6 +52,7 @@ struct NativeTextField: NSViewRepresentable {
 struct SettingsView: View {
     @ObservedObject private var settings = AppSettings.shared
     @State private var urlText: String = ""
+    @State private var alertsURLText: String = ""
     @State private var newKeyword: String = ""
 
     private var availableFonts: [String] {
@@ -146,9 +147,10 @@ struct SettingsView: View {
                     Toggle("Enable click-through", isOn: $settings.clickThroughEnabled)
                         .toggleStyle(.switch)
                         .onChange(of: settings.clickThroughEnabled) { newValue in
-                            // Find the overlay window and update it directly
+                            // Find the overlay windows and update them directly
                             if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
                                 appDelegate.overlayWindow?.ignoresMouseEvents = newValue
+                                appDelegate.alertsWindow?.ignoresMouseEvents = newValue
                                 appDelegate.statusBarMenu?.updateMenu()
                             }
                         }
@@ -160,28 +162,84 @@ struct SettingsView: View {
 
                 Divider()
 
-                // Window Section
+                // Chat Window Section
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Window")
+                    Text("Chat Window")
                         .font(.headline)
 
-                    Button("Reset Window Position") {
-                        for window in NSApplication.shared.windows {
-                            if let overlayWindow = window as? OverlayWindow {
-                                let defaultSize = NSSize(width: 400, height: 600)
-                                let screenFrame = NSScreen.main?.visibleFrame ?? NSRect(x: 0, y: 0, width: 800, height: 600)
-                                let newOrigin = NSPoint(
-                                    x: screenFrame.midX - defaultSize.width / 2,
-                                    y: screenFrame.midY - defaultSize.height / 2
-                                )
-                                let newFrame = NSRect(origin: newOrigin, size: defaultSize)
-                                overlayWindow.setFrame(newFrame, display: true, animate: true)
-                                break
-                            }
+                    Button("Reset Chat Window Position") {
+                        if let appDelegate = NSApplication.shared.delegate as? AppDelegate,
+                           let overlayWindow = appDelegate.overlayWindow {
+                            let defaultSize = NSSize(width: 400, height: 600)
+                            let screenFrame = NSScreen.main?.visibleFrame ?? NSRect(x: 0, y: 0, width: 800, height: 600)
+                            let newOrigin = NSPoint(
+                                x: screenFrame.midX - defaultSize.width / 2,
+                                y: screenFrame.midY - defaultSize.height / 2
+                            )
+                            let newFrame = NSRect(origin: newOrigin, size: defaultSize)
+                            overlayWindow.setFrame(newFrame, display: true, animate: true)
                         }
                     }
 
-                    Text("Centers the overlay window on screen with default size")
+                    Text("Centers the chat window on screen with default size")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
+                Divider()
+
+                // Alerts Section
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Alerts Overlay")
+                        .font(.headline)
+
+                    NativeTextField(
+                        text: $alertsURLText,
+                        placeholder: "https://streamelements.com/overlay/...",
+                        onSubmit: { settings.alertsURL = alertsURLText }
+                    )
+                    .frame(height: 22)
+
+                    Text("Enter your alerts overlay URL (StreamElements, Streamlabs, etc.)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+
+                    Button("Apply URL") {
+                        settings.alertsURL = alertsURLText
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(alertsURLText == settings.alertsURL)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text("Background Opacity")
+                            Spacer()
+                            Text("\(Int(settings.alertsBackgroundOpacity * 100))%")
+                                .foregroundColor(.secondary)
+                                .monospacedDigit()
+                        }
+                        Slider(value: $settings.alertsBackgroundOpacity, in: 0...1)
+                    }
+
+                    Text("Click-through is linked with chat overlay")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+
+                    Button("Reset Alerts Window Position") {
+                        if let appDelegate = NSApplication.shared.delegate as? AppDelegate,
+                           let alertsWindow = appDelegate.alertsWindow {
+                            let defaultSize = NSSize(width: 400, height: 300)
+                            let screenFrame = NSScreen.main?.visibleFrame ?? NSRect(x: 0, y: 0, width: 800, height: 600)
+                            let newOrigin = NSPoint(
+                                x: screenFrame.midX - defaultSize.width / 2,
+                                y: screenFrame.midY - defaultSize.height / 2
+                            )
+                            let newFrame = NSRect(origin: newOrigin, size: defaultSize)
+                            alertsWindow.setFrame(newFrame, display: true, animate: true)
+                        }
+                    }
+
+                    Text("Centers the alerts window on screen with default size")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -298,6 +356,7 @@ struct SettingsView: View {
         .frame(minWidth: 400, maxWidth: 400)
         .onAppear {
             urlText = settings.twitchChatURL
+            alertsURLText = settings.alertsURL
         }
     }
 
